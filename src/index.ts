@@ -154,7 +154,7 @@ export class EKool {
         }
     }
 
-    private async _dataMiner(pathElements: string[], accessToken: string = this.accessToken, url: string = API_URL): Promise<any> {
+    private async _dataMiner(pathElements: string[], url: string = API_URL): Promise<any> {
         pathElements.forEach((pathElement) => {
             url = url + '/' + pathElement;
         });
@@ -162,7 +162,7 @@ export class EKool {
         const defaultPayload = this._getStampedBase(this._getQueryBase());
 
         const headers = {
-            "Authorization": "Bearer " + accessToken,
+            "Authorization": "Bearer " + this.accessToken,
             'Content-Type': 'application/json;charset=UTF-8'
         };
         
