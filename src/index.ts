@@ -8,7 +8,6 @@ const API_URL = 'https://postikana.ekool.eu/rest/json';
 const SERVER_ROOT_URL = 'https://ekool.eu/';
 
 export class EKool {
-    loggedIn: boolean = false;
     accessToken!: string;
     refreshToken!: string;
     personData!: personData;
@@ -50,7 +49,6 @@ export class EKool {
             } else {
                 this.accessToken = res.data.access_token;
                 this.refreshToken = res.data.refresh_token;
-                this.loggedIn = true;
             }
         });
     }
