@@ -1,7 +1,6 @@
 import { personData, familyData, premiumPackage, tasks, lessons, timetable, gradeDetails, feedItem } from './interfaces';
 import { ekoolDate, feed, something } from './types';
 export declare class EKool {
-    loggedIn: boolean;
     accessToken: string;
     refreshToken: string;
     personData: personData;
@@ -26,6 +25,7 @@ export declare class EKool {
     getSubjectWithCoursesAndJournals(): Promise<something>;
     getGradesForTermByJournal(selectedJournalId: string | number, gradeId: string | number): Promise<something>;
     getConsolidatedGradesByJournal(journalId: string | number): Promise<something>;
+    private getStudentId;
     formatDate(timestamp: number | Date | string): ekoolDate;
     getChartForGrade(gradeId: string | number): Promise<string>;
     private _dataMiner;

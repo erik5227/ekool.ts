@@ -54,74 +54,78 @@ export class EKool {
     }
 
     public async getPersonData(): Promise<personData> {
-        this.personData = await this._dataMiner(["person"]);
+        this.personData = await this._dataMiner("person");
         this.studentID = this.personData.roles[0].studentId;
         return this.personData;
     }
 
     public async getFamily(): Promise<familyData> {
-        this.family = await this._dataMiner(["family"]);
+        this.family = await this._dataMiner("family");
         return this.family;
     }
 
     public async getPremiumPackages(): Promise<premiumPackage> {
-        return await this._dataMiner(["premiumPackages"]);
+        return await this._dataMiner("premiumPackages");
     }
 
     public async getAbsencesForStudent(): Promise<any[]> {
-        return await this._dataMiner(['absences90Days'])
+        return await this._dataMiner('absences90Days')
     }
 
     public async getTasksForStudent(start: ekoolDate, end: ekoolDate): Promise<tasks> {
-        return await this._dataMiner(['todolist', String(this.studentID), start, end]);
+        return await this._dataMiner('todolist', this.getStudentId(), start, end);
     }
 
     public async getLessonsForStudents(start: ekoolDate, end: ekoolDate): Promise<lessons> {
-        return await this._dataMiner(['lessons', String(this.studentID), start, end]);
+        return await this._dataMiner('lessons', this.getStudentId(), start, end);
     }
 
     public async getTimetableForStudents(start: ekoolDate, end: ekoolDate): Promise<timetable> {
-        return await this._dataMiner(['timetable', String(this.studentID), start, end]);
+        return await this._dataMiner('timetable', this.getStudentId(), start, end);
     }
 
     public async getLessonWithDescriptionForAbsenceId(absenceID: string | number): Promise<something> {
-        return await this._dataMiner(['lessonEventByAbsence', String(this.studentID), String(absenceID)])
+        return await this._dataMiner('lessonEventByAbsence', this.getStudentId(), String(absenceID))
     }
 
     public async getGradeDetailData(gradeID: string | number): Promise<gradeDetails> {
-        return await this._dataMiner(['grades', String(this.studentID), String(gradeID)])
+        return await this._dataMiner('grades', this.getStudentId(), String(gradeID))
     }
 
     public async getSubjectGradeForStudentSubject(subjectID: string | number): Promise<something> {
-        return await this._dataMiner(['subjGrade', String(this.studentID), String(subjectID)]);
+        return await this._dataMiner('subjGrade', this.getStudentId(), String(subjectID));
     }
 
     public async getFeedItem(eventId: string | number): Promise<feedItem> {
-        return await this._dataMiner(['feeditem', String(this.studentID), String(eventId)]);   
+        return await this._dataMiner('feeditem', this.getStudentId(), String(eventId));   
     }
 
     public async getFeedForStudent(): Promise<feed> {
-        return await this._dataMiner(['feed', String(this.studentID)]);
+        return await this._dataMiner('feed', this.getStudentId());
     }
 
     public async getThread(threadId: string | number): Promise<something> {
-        return await this._dataMiner(['thread', String(threadId)]);
+        return await this._dataMiner('thread', String(threadId));
     }
 
     public async getDilBehGradesForTypeId(typeId: string | number): Promise<something> {
-        return await this._dataMiner(['grades/dilbeh', String(this.studentID), String(typeId)]);
+        return await this._dataMiner('grades/dilbeh', this.getStudentId(), String(typeId));
     }
 
     public async getSubjectWithCoursesAndJournals(): Promise<something> {
-        return await this._dataMiner(['gradesheet', String(this.studentID)]);
+        return await this._dataMiner('gradesheet', this.getStudentId());
     }
 
     public async getGradesForTermByJournal(selectedJournalId: string | number, gradeId: string | number): Promise<something> {
-        return await this._dataMiner(['gradesheet', String(this.studentID), 'consolidated', String(selectedJournalId), 'term', String(gradeId)]);
+        return await this._dataMiner('gradesheet', this.getStudentId(), 'consolidated', String(selectedJournalId), 'term', String(gradeId));
     }
 
     public async getConsolidatedGradesByJournal(journalId: string | number): Promise<something> {
-        return await this._dataMiner(['gradesheet', String(this.studentID), 'consolidated', String(journalId)]);
+        return await this._dataMiner('gradesheet', this.getStudentId(), 'consolidated', String(journalId));
+    }
+
+    private getStudentId(): string {
+        return String(this.studentID);
     }
 
     public formatDate(timestamp: number | Date | string): ekoolDate {
@@ -154,7 +158,7 @@ export class EKool {
         }
     }
 
-    private async _dataMiner(pathElements: string[]): Promise<any> {
+    private async _dataMiner(...pathElements: string[]): Promise<any> {
         let url = API_URL;
         pathElements.forEach((pathElement) => {
             url = url + '/' + pathElement;
