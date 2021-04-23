@@ -1,4 +1,4 @@
-const { EKool } = require('../lib/index');
+const { EKool } = require('../../lib/index');
 
 const main = async function(){
     const ekool = new EKool();

@@ -1,5 +1,5 @@
 // Import library
-const { EKool } = require('../lib/index');
+const { EKool } = require('../../lib/index');
 
 // Wrap in async function
 const main = async function(){
