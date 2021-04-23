@@ -154,7 +154,8 @@ export class EKool {
         }
     }
 
-    private async _dataMiner(pathElements: string[], url: string = API_URL): Promise<any> {
+    private async _dataMiner(pathElements: string[]): Promise<any> {
+        let url = API_URL;
         pathElements.forEach((pathElement) => {
             url = url + '/' + pathElement;
         });
