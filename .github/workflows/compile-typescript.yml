@@ -1,14 +1,17 @@
 name: Compile library
 
-on: push
+on: [push]
 
 jobs:
-  build:
+  build-push:
     runs-on: ubuntu-latest
+    name: Builds Typescript
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Building Typescript
+        uses: FuLagann/tsc-build-push@v1
         with:
-          node-version: 12
-      - run: npm ci
-      - run: npm run-script build
+          user-name: "erik5227"
+          user-email: ${{secrets.owner_email}}
+          message: "Automatically built library"
