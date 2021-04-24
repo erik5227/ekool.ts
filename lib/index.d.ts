@@ -125,6 +125,12 @@ export declare class EKool {
      */
     private getStudentId;
     /**
+     * Returns eKool-formatted date for provided day after today
+     * @param days how many days to skip
+     * @returns ekoolDate day
+     */
+    getDaysFromNow(days: number): ekoolDate;
+    /**
      * Converts date into a eKool-friendly format
      * @param timestamp time in milliseconds
      * @returns time in eKool-friendly format

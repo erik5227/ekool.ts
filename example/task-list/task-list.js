@@ -6,8 +6,8 @@ const main = async function(){
 
     const todayTimestamp = new Date();
     const upcomingTasks = await ekool.getTasksForStudent(
-        ekool.formatDate(todayTimestamp.getTime()),
-        ekool.formatDate(todayTimestamp.getTime() + 604800000)
+        ekool.getDaysFromNow(0),
+        ekool.getDaysFromNow(6)
     )
 
     upcomingTasks.eventList.forEach(task => {
