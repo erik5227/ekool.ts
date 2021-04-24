@@ -2,6 +2,10 @@
 
 **Asynchronous API wrapper for eKool**
 
+```
+Work in progress. The class names, methods and API may be changed before initial realease
+```
+
 ## Methods
 
 `formatDate()` - turns timestamp into ekool-friendly format
