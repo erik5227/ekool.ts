@@ -4,7 +4,6 @@ const main = async function(){
     const ekool = new EKool(await EKool.login(process.env.EMAIL, process.env.PASSWORD));
     await ekool.getPersonData();
 
-    const todayTimestamp = new Date();
     const upcomingTasks = await ekool.getTasksForStudent(
         ekool.getDaysFromNow(0),
         ekool.getDaysFromNow(6)
