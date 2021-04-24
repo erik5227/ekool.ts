@@ -1,8 +1,7 @@
 const { EKool } = require('../../lib/index');
 
 const main = async function(){
-    const ekool = new EKool();
-    await ekool.login(process.env.EMAIL, process.env.PASSWORD);
+    const ekool = new EKool(await EKool.login(process.env.EMAIL, process.env.PASSWORD));
     await ekool.getPersonData();
 
     const todayTimestamp = new Date();

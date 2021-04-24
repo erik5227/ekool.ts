@@ -13,19 +13,15 @@ export class EKool {
     personData: personData = null;
     studentID: number | string = null;
     family: familyData = null;
+    static accessToken: any;
 
     /**
      * Create new EKool object
      * @param accessToken provide pre-retreived access token
      * @param refreshToken provide pre-retreived refresh token
      */
-    public constructor(accessToken?: string, refreshToken?: string){
-        if (accessToken) { 
-            this.accessToken = accessToken;
-        }
-        if (refreshToken) {
-            this.refreshToken = refreshToken;
-        }
+    public constructor(accessToken: string){
+        this.accessToken = accessToken;
     }
 
     /**
@@ -33,7 +29,8 @@ export class EKool {
      * @param email eKool email
      * @param password eKool password
      */
-    public async login(email: string, password: string): Promise<void> {
+    public static async login(email: string, password: string): Promise<string> {
+        var result;
         const url = SERVER_ROOT_URL + 'auth/oauth/token';
 
         const headers = {
@@ -57,10 +54,10 @@ export class EKool {
                 console.log(res.status)
                 throw new Error('Unable to login');
             } else {
-                this.accessToken = res.data.access_token;
-                this.refreshToken = res.data.refresh_token;
+                result =  res.data.access_token;
             }
         });
+        return result;
     }
 
     /**
