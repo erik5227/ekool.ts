@@ -15,3 +15,4 @@ jobs:
           user-name: "erik5227"
           user-email: ${{secrets.owner_email}}
           message: "Automatically built library"
+          directories: .
