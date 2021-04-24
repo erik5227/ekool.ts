@@ -1,7 +1,7 @@
-import { ekoolDate, gradeType, something } from "./types";
+import { ekoolDate, gradeType } from "./types";
 
 /* 
-Some fields state "something" because they sometimes have a certain value, 
+Some fields state "unknown" because they sometimes have a certain value, 
 but I couldn't find it because that data is not set up to be shown in my school 
 */
 
@@ -37,14 +37,14 @@ interface role {
     newTodos: number;
     newFeedEvents: number;
     mKoolActivated: boolean;
-    userProfileImhFn: something;
+    userProfileImhFn: unknown;
     timetableUrl: string;
 }
 
 interface person {
     name1: string;
     name2: string;
-    profileImgFn: something;
+    profileImgFn: unknown;
 }
 
 interface task {
@@ -52,25 +52,25 @@ interface task {
     title: string;
     orderTimestampLong: number;
     content: string;
-    comments: something[];
+    comments: unknown[];
     id: number;
-    teacherAttachments: something[];
-    studentAttachments: something[]
+    teacherAttachments: unknown[];
+    studentAttachments: unknown[]
     institutionId: number;
-    todoRolePersonId: something;
-    isHot: something;
+    todoRolePersonId: unknown;
+    isHot: unknown;
     subjectName: string;
     deadLine: ekoolDate;
     added: string;
-    isDone: something[];
+    isDone: unknown[];
     isTest: boolean;
     isGraded: boolean;
     allowStudentSubmission: boolean;
-    commentIsPublic: something;
+    commentIsPublic: unknown;
     typeId: number;
 }
 
-interface lesson {
+export interface lesson {
     id: number;
     courseName: string;
     subjectName: string;
@@ -91,11 +91,11 @@ export interface personData {
     id: number;
     name1: string;
     name2: string;
-    profileImgFn: something;
+    profileImgFn: unknown;
     premium: boolean;
-    premiumPackageType: something;
-    expirationDate: something;
-    recurring: something;
+    premiumPackageType: unknown;
+    expirationDate: unknown;
+    recurring: unknown;
     adData: adData;
     roles: role[];
 }
@@ -143,36 +143,36 @@ export interface lessons {
     endDate: string;
     weekNo: number;
     eventList: lesson[];
-    orderTimestampLong: something;
+    orderTimestampLong: number;
 }
 
 export interface timetable {
-    eventList: something[];
+    eventList: eventDetails[];
     weekNo: number;
 }
 
 export interface gradeDetails {
     id: number;
-    orderSeq: something;
+    orderSeq: unknown;
     lastModified: ekoolDate;
-    itemType: something;
-    actionType: something;
+    itemType: unknown;
+    actionType: unknown;
     hot: boolean;
     gradeTypeId: gradeType;
-    gradeTypeAdditionalDesc: something;
+    gradeTypeAdditionalDesc: unknown;
     abbr: string;
     authorName: string;
     lessonDate: ekoolDate;
     subjectName: string;
-    subjectId: something;
-    termName: something;
+    subjectId: unknown;
+    termName: unknown;
     textContent: string;
     hasStatistics: boolean;
-    gradeInPoints: something;
-    maxPoints: something;
+    gradeInPoints: unknown;
+    maxPoints: unknown;
     journalEventDescription?: string;
     journalEventName?: string;
-    fileName?: something;
+    fileName?: unknown;
     statistics?: statElement[];
     published: boolean;
     test: boolean;
@@ -181,23 +181,23 @@ export interface gradeDetails {
 
 export interface eventDetails {
     id: number;
-    orderSeq: something;
+    orderSeq: unknown;
     lastModified: ekoolDate;
-    itemType: something;
-    actionType: something;
+    itemType: unknown;
+    actionType: unknown;
     hot: boolean;
     gradeTypeId: gradeType;
-    gradeTypeAdditionalDesc: something;
+    gradeTypeAdditionalDesc: unknown;
     abbr: string;
     authorName: string;
     lessonDate: ekoolDate;
     subjectName: string;
-    subjectId: something;
-    termName: something;
+    subjectId: unknown;
+    termName: unknown;
     textContent: string;
     hasStatistics: boolean;
-    gradeInPoints: something;
-    maxPoints: something;
+    gradeInPoints: unknown;
+    maxPoints: unknown;
     published: boolean;
     test: boolean;
     amendment: boolean;
