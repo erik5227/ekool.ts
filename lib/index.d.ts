@@ -152,7 +152,6 @@ export declare class EKool {
     /**
      * Retreives data from eKool's API
      * @param pathElements API URL path elements
-     * @returns
      */
     private _dataMiner;
     /**
