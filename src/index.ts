@@ -39,7 +39,7 @@ export class EKool {
     }
 
     /**
-     * Retreives access and refresh tokens, writes them into class variables
+     * Retreives access token
      * @param email eKool email
      * @param password eKool password
      */
