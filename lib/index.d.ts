@@ -131,6 +131,12 @@ export declare class EKool {
      */
     getDaysFromNow(days: number): ekoolDate;
     /**
+     * Remove advertisements from eKool feed
+     * @param feed feed to clean
+     * @returns clean feed
+     */
+    cleanFeed(feed: feed): feed;
+    /**
      * Converts date into a eKool-friendly format
      * @param timestamp time in milliseconds
      * @returns time in eKool-friendly format

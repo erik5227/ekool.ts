@@ -246,6 +246,21 @@ export class EKool {
     }
 
     /**
+     * Remove advertisements from eKool feed
+     * @param feed feed to clean
+     * @returns clean feed
+     */
+    public cleanFeed(feed: feed): feed {
+        feed.forEach(feedEntry => {
+            // Advertisement item type is 20
+            if (feedEntry.itemType === 20) {
+                feed.splice(feed.indexOf(feedEntry), 1);
+            }
+        })
+        return feed;
+    }
+
+    /**
      * Converts date into a eKool-friendly format
      * @param timestamp time in milliseconds
      * @returns time in eKool-friendly format
