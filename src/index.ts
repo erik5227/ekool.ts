@@ -106,7 +106,7 @@ export class EKool {
      * @returns Student absences
      */
     public async getAbsencesForStudent(): Promise < unknown[] > {
-        return await this._dataMiner('absences90Days')
+        return await this._dataMiner('absences90Days', this.getStudentId())
     }
 
     /**
