@@ -54,6 +54,8 @@ Work in progress. The class names, methods and API may be changed before initial
 
 `createPersonalTask()` - Creates a new personal task
 
+`updatePersonalTask()` - Updates personal task
+
 `removePersonalTask()` - Removes personal task
 
 `getNewToken()` - Obtains a new access token

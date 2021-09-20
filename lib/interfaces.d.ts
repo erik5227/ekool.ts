@@ -124,11 +124,11 @@ export interface privateTaskQuery extends queryBase {
 }
 interface todoPerson {
     content: string;
-    deadline: ekoolDate;
+    deadline?: ekoolDate;
     name: string;
 }
 interface todoPriority {
-    id: taskPriorityLevels;
+    id?: taskPriorityLevels;
 }
 export interface refreshTokenResponse {
     access_token: string;

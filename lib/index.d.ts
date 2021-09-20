@@ -154,6 +154,14 @@ export declare class EKool {
      */
     createPersonalTask(name: string, content: string, isDone: boolean, deadline: Date, priority: taskPriorityLevels): Promise<Boolean>;
     /**
+     * Updates personal task
+     * @param rolePersonId Usually the same as task id
+     * @param name New title for the task
+     * @param content New description for the task
+     * @returns true if task was successfully updated
+     */
+    updatePersonalTask(rolePersonId: string | number, name: string, content: string): Promise<boolean>;
+    /**
      * Removes specified personal task
      * @param taskId ID of a task to remove
      * @returns true if task was removed successfully

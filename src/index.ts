@@ -312,6 +312,36 @@ export class EKool {
     }
 
     /**
+     * Updates personal task
+     * @param rolePersonId Usually the same as task id
+     * @param name New title for the task
+     * @param content New description for the task
+     * @returns true if task was successfully updated
+     */
+    public async updatePersonalTask (rolePersonId: string | number, name: string, content: string): Promise < boolean > {
+        let queryBase = this._getStampedBase(this._getQueryBase()) as privateTaskQuery;
+        queryBase.personId = this.personData.id;
+        queryBase.todoPerson = {
+            content: content,
+            name: name
+        };
+        queryBase.todoPriority = {};
+
+        const headers = {
+            "Authorization": "Bearer " + this.accessToken,
+            'Content-Type': 'application/json;charset=UTF-8'
+        };
+
+        return (await axios({
+            method: 'POST',
+            url: API_URL + '/updatePersonalTask/' + rolePersonId,
+            data: queryBase,
+            headers: headers
+        })).status == 200
+
+    }
+
+    /**
      * Removes specified personal task
      * @param taskId ID of a task to remove
      * @returns true if task was removed successfully
