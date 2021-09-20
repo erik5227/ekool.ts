@@ -133,9 +133,9 @@ export interface queryBase {
 
 export interface privateTaskQuery extends queryBase {
     personId: string | number;
-    isDone: boolean;
-    todoPerson: todoPerson;
-    todoPriority: todoPriority;
+    isDone?: boolean;
+    todoPerson?: todoPerson;
+    todoPriority?: todoPriority;
 }
 
 interface todoPerson {

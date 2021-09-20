@@ -311,6 +311,28 @@ export class EKool {
         })).status == 200
     }
 
+    /**
+     * Removes specified personal task
+     * @param taskId ID of a task to remove
+     * @returns true if task was removed successfully
+     */
+    public async removePersonalTask(taskId: string | number): Promise < boolean > {
+        let queryBase = this._getStampedBase(this._getQueryBase()) as privateTaskQuery;
+        queryBase.personId = this.personData.id;
+
+        const headers = {
+            "Authorization": "Bearer " + this.accessToken,
+            'Content-Type': 'application/json;charset=UTF-8'
+        };
+
+        return (await axios({
+            method: 'POST',
+            url: API_URL + '/removePersonalTask/' + taskId,
+            data: queryBase,
+            headers: headers
+        })).status == 200
+    }
+
     public async getNewToken(): Promise < refreshTokenResponse > {
         let refreshTokenData = new URLSearchParams();
         refreshTokenData.append('grant_type', 'refresh_token');

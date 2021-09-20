@@ -153,6 +153,12 @@ export declare class EKool {
      * @returns true if task was added successfully
      */
     createPersonalTask(name: string, content: string, isDone: boolean, deadline: Date, priority: taskPriorityLevels): Promise<Boolean>;
+    /**
+     * Removes specified personal task
+     * @param taskId ID of a task to remove
+     * @returns true if task was removed successfully
+     */
+    removePersonalTask(taskId: string | number): Promise<boolean>;
     getNewToken(): Promise<refreshTokenResponse>;
     /**
      * Generates a URL for a chart image representing provided grade's statistics.
