@@ -39,7 +39,7 @@ interface person {
     name2: string;
     profileImgFn: unknown;
 }
-interface task {
+export interface task {
     authorName: string;
     title: string;
     orderTimestampLong: number;
@@ -115,6 +115,11 @@ export interface queryBase {
     noticePush: boolean;
     todoPush: boolean;
     messagePush: boolean;
+}
+export interface eventUpdateQuery extends queryBase {
+    studentId: number;
+    todo: boolean;
+    todoId: number;
 }
 export interface privateTaskQuery extends queryBase {
     personId: string | number;

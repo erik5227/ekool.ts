@@ -12,7 +12,9 @@ import {
     lesson,
     privateTaskQuery,
     refreshTokenResponse,
-    absence
+    absence,
+    eventUpdateQuery,
+    task
 } from './interfaces';
 import {
     ekoolDate,
@@ -188,6 +190,41 @@ export class EKool {
         return await this._dataMiner('feed', this.getStudentId());
     }
 
+    public async updateTask (isDone: boolean, task: task): Promise < boolean > ;
+    public async updateTask (isDone: boolean, id: number, deadLine: ekoolDate): Promise < boolean > ;
+    public async updateTask (isDone: boolean, a: any, b?: any): Promise < boolean > {
+        let id, deadLine;
+        if (b && typeof a == 'number') {
+            id = a, deadLine = b;
+        } else {
+            id = (a as task).id
+            deadLine = (a as task).deadLine
+        }
+        var queryBase = this._getStampedBase(this._getQueryBase()) as eventUpdateQuery;
+		queryBase.studentId = this.studentID;
+		queryBase.todo = isDone;
+		queryBase.todoId = id;
+
+        const oDate = this.getDateFromEkoolDate(deadLine)
+
+        const startingDate = new Date(oDate.setDate(oDate.getDate() - oDate.getDay() + (oDate.getDay() == 0 ? -6:1)));
+		const endingDate = new Date(oDate.setDate(oDate.getDate() - oDate.getDay() + 7));
+		const startDateString = this.formatDate(startingDate);
+		const endDateString = this.formatDate(endingDate);
+
+        const headers = {
+            "Authorization": "Bearer " + this.accessToken,
+            'Content-Type': 'application/json;charset=UTF-8'
+        };
+
+        return (await axios({
+            method: 'POST',
+            url: API_URL + '/todoChange/' + startDateString + '/' + endDateString,
+            data: queryBase,
+            headers: headers
+        })).status == 200
+    }
+
     /**
      * Retreives data about thread by its ID
      * @param threadId thread id
@@ -273,6 +310,15 @@ export class EKool {
     public formatDate(timestamp: number | Date | string): ekoolDate {
         var dateObj = new Date(timestamp);
         return `${String(dateObj.getDate()).padStart(2, "0")}.${String((dateObj.getMonth())+1).padStart(2, "0")}.${String(dateObj.getFullYear())}`;
+    }
+
+    /**
+     * Converts ekoolDate string to Date object
+     * @param ekoolDate ekoolDate string
+     * @returns Date object of the date
+     */
+    public getDateFromEkoolDate(ekoolDate: string) {
+        return new Date(ekoolDate.split('.').reverse().join('-'));
     }
     
     /**

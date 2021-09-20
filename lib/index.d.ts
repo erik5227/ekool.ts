@@ -1,4 +1,4 @@
-import { personData, familyData, premiumPackage, tasks, lessons, timetable, gradeDetails, feedItem, lesson, refreshTokenResponse, absence } from './interfaces';
+import { personData, familyData, premiumPackage, tasks, lessons, timetable, gradeDetails, feedItem, lesson, refreshTokenResponse, absence, task } from './interfaces';
 import { ekoolDate, feed } from './types';
 import { taskPriorityLevels } from './enums';
 export declare class EKool {
@@ -90,6 +90,8 @@ export declare class EKool {
      * @returns student feed
      */
     getFeedForStudent(): Promise<feed>;
+    updateTask(isDone: boolean, task: task): Promise<boolean>;
+    updateTask(isDone: boolean, id: number, deadLine: ekoolDate): Promise<boolean>;
     /**
      * Retreives data about thread by its ID
      * @param threadId thread id
@@ -143,6 +145,12 @@ export declare class EKool {
      * @returns time in eKool-friendly format
      */
     formatDate(timestamp: number | Date | string): ekoolDate;
+    /**
+     * Converts ekoolDate string to Date object
+     * @param ekoolDate ekoolDate string
+     * @returns Date object of the date
+     */
+    getDateFromEkoolDate(ekoolDate: string): Date;
     /**
      * Creates a new personal task visible by student only
      * @param name Title for the task
