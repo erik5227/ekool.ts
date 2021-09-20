@@ -1,4 +1,4 @@
-import { personData, familyData, premiumPackage, tasks, lessons, timetable, gradeDetails, feedItem, lesson, refreshTokenResponse } from './interfaces';
+import { personData, familyData, premiumPackage, tasks, lessons, timetable, gradeDetails, feedItem, lesson, refreshTokenResponse, absence } from './interfaces';
 import { ekoolDate, feed } from './types';
 import { taskPriorityLevels } from './enums';
 export declare class EKool {
@@ -39,7 +39,7 @@ export declare class EKool {
      * Retreives data about student's abscences for last 90 days
      * @returns Student absences
      */
-    getAbsencesForStudent(): Promise<unknown[]>;
+    getAbsencesForStudent(): Promise<absence[]>;
     /**
      * Retreives data about student's tasks in given timeframe
      * @param start timeframe beginning in ekoolDate format

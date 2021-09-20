@@ -11,7 +11,8 @@ import {
     feedItem,
     lesson,
     privateTaskQuery,
-    refreshTokenResponse
+    refreshTokenResponse,
+    absence
 } from './interfaces';
 import {
     ekoolDate,
@@ -109,7 +110,7 @@ export class EKool {
      * Retreives data about student's abscences for last 90 days
      * @returns Student absences
      */
-    public async getAbsencesForStudent(): Promise < unknown[] > {
+    public async getAbsencesForStudent(): Promise < absence[] > {
         return await this._dataMiner('absences90Days', this.getStudentId())
     }
 

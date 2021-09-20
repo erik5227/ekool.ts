@@ -82,6 +82,21 @@ export interface lesson {
     name: string;
 }
 
+export interface absence {
+    id: number;
+    lessonDate: ekoolDate;
+    lessonNumber: number;
+    lessonEventId: number;
+    code: string;
+    codeExplanation: string;
+    subjectName: string;
+    orderSeq: number;
+    teacherName: string;
+    insertedTimestamp: number;
+    reason: boolean;
+    lateness: boolean;
+}
+
 interface statElement {
     count: number;
     abbr: string;
