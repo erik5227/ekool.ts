@@ -20,6 +20,8 @@ Work in progress. The class names, methods and API may be changed before initial
 
 `getTasksForStudent()` - Retreives data about student's tasks in given timeframe
 
+`updateTask()` - Mark task as done/not done
+
 `getLessonsForStudents()` - Retreives data about student's lessons in given timeframe
 
 `getTimetableForStudents()` - Retreives data about student's timetable in given timeframe
@@ -49,6 +51,8 @@ Work in progress. The class names, methods and API may be changed before initial
 `cleanFeed()` - Removes advertisements from eKool feed
 
 `formatDate()` - Turns timestamp into ekool-friendly format
+
+`getDateFromEkoolDate()` - Turns ekool-friendly date into Date object
 
 `getChartForGrade()` - Returns chart image url for provided grade id
 
