@@ -1,10 +1,11 @@
-import { personData, familyData, premiumPackage, tasks, lessons, timetable, gradeDetails, feedItem, lesson } from './interfaces';
+import { personData, familyData, premiumPackage, tasks, lessons, timetable, gradeDetails, feedItem, lesson, refreshTokenResponse } from './interfaces';
 import { ekoolDate, feed } from './types';
+import { taskPriorityLevels } from './enums';
 export declare class EKool {
     accessToken: string;
     refreshToken: string;
     personData: personData;
-    studentID: number | string;
+    studentID: number;
     family: familyData;
     static accessToken: any;
     /**
@@ -12,13 +13,13 @@ export declare class EKool {
      * @param accessToken provide pre-retreived access token
      * @param refreshToken provide pre-retreived refresh token
      */
-    constructor(accessToken: string);
+    constructor(tokens: string[]);
     /**
      * Retreives access token
      * @param email eKool email
      * @param password eKool password
      */
-    static login(email: string, password: string): Promise<string>;
+    static login(email: string, password: string): Promise<string[]>;
     /**
      * Retreives data about person. Necessary if `EKool.studentId` is not set explicitly
      * @returns Person data payload
@@ -142,6 +143,17 @@ export declare class EKool {
      * @returns time in eKool-friendly format
      */
     formatDate(timestamp: number | Date | string): ekoolDate;
+    /**
+     * Creates a new personal task visible by student only
+     * @param name Title for the task
+     * @param content Description of the task
+     * @param isDone Whether or not to mark the task
+     * @param deadline Deadline to set for the task
+     * @param priority Priority for the task
+     * @returns true if task was added successfully
+     */
+    createPersonalTask(name: string, content: string, isDone: boolean, deadline: Date, priority: taskPriorityLevels): Promise<Boolean>;
+    getNewToken(): Promise<refreshTokenResponse>;
     /**
      * Generates a URL for a chart image representing provided grade's statistics.
      * Requires active eKool premium

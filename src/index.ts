@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import {
     personData,
     queryBase,
@@ -9,7 +9,9 @@ import {
     timetable,
     gradeDetails,
     feedItem,
-    lesson
+    lesson,
+    privateTaskQuery,
+    refreshTokenResponse
 } from './interfaces';
 import {
     ekoolDate,
@@ -17,6 +19,7 @@ import {
 } from './types';
 import ImageCharts from 'image-charts';
 import md5 from 'md5';
+import { taskPriorityLevels } from './enums';
 
 const API_URL = 'https://postikana.ekool.eu/rest/json';
 const SERVER_ROOT_URL = 'https://ekool.eu/';
@@ -25,7 +28,7 @@ export class EKool {
     accessToken: string = null;
     refreshToken: string = null;
     personData: personData = null;
-    studentID: number | string = null;
+    studentID: number = null;
     family: familyData = null;
     static accessToken: any;
 
@@ -34,8 +37,9 @@ export class EKool {
      * @param accessToken provide pre-retreived access token
      * @param refreshToken provide pre-retreived refresh token
      */
-    public constructor(accessToken: string) {
-        this.accessToken = accessToken;
+    public constructor(tokens: string[]) {
+        this.accessToken = tokens[0];
+        this.refreshToken = tokens[1];
     }
 
     /**
@@ -43,7 +47,7 @@ export class EKool {
      * @param email eKool email
      * @param password eKool password
      */
-    public static async login(email: string, password: string): Promise < string > {
+    public static async login(email: string, password: string): Promise < string[] > {
         var result;
         const url = SERVER_ROOT_URL + 'auth/oauth/token';
 
@@ -68,7 +72,7 @@ export class EKool {
                 console.log(res.status)
                 throw new Error('Unable to login');
             } else {
-                result = res.data.access_token;
+                result = [res.data.access_token, res.data.refresh_token];
             }
         });
         return result;
@@ -268,6 +272,60 @@ export class EKool {
     public formatDate(timestamp: number | Date | string): ekoolDate {
         var dateObj = new Date(timestamp);
         return `${String(dateObj.getDate()).padStart(2, "0")}.${String((dateObj.getMonth())+1).padStart(2, "0")}.${String(dateObj.getFullYear())}`;
+    }
+    
+    /**
+     * Creates a new personal task visible by student only
+     * @param name Title for the task
+     * @param content Description of the task
+     * @param isDone Whether or not to mark the task
+     * @param deadline Deadline to set for the task
+     * @param priority Priority for the task
+     * @returns true if task was added successfully
+     */
+    public async createPersonalTask(name: string, content: string, isDone: boolean, deadline: Date, priority: taskPriorityLevels): Promise < Boolean > {
+
+        let queryBase = this._getStampedBase(this._getQueryBase()) as privateTaskQuery;
+        queryBase.personId = this.personData.id;
+        queryBase.isDone = isDone;
+        queryBase.todoPerson = {};
+	    queryBase.todoPriority = {};
+        queryBase.todoPerson.content = content;
+		queryBase.todoPerson.deadline = new Date(deadline.getTime() - (deadline.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
+		queryBase.todoPerson.name = name;
+		queryBase.todoPriority.id = priority;
+
+        const headers = {
+            "Authorization": "Bearer " + this.accessToken,
+            'Content-Type': 'application/json;charset=UTF-8'
+        };
+
+        return (await axios({
+            method: 'POST',
+            url: API_URL + '/addNewPersonalTask',
+            data: queryBase,
+            headers: headers
+        })).status == 200
+    }
+
+    public async getNewToken(): Promise < refreshTokenResponse > {
+        let refreshTokenData = new URLSearchParams();
+        refreshTokenData.append('grant_type', 'refresh_token');
+        refreshTokenData.append('client_id', 'mKool');
+        refreshTokenData.append('refresh_token', this.refreshToken);
+
+        const data = (await axios.post(SERVER_ROOT_URL + 'auth/oauth/token', refreshTokenData, {
+            headers: {
+                'Authorization': 'Basic bUtvb2w6azZoOTdoYWZzcnZvbzNzZDEzZ21kdXE4YjZ0YnM1czE2anFtYTZydThmajN0dWVhdG5lOGE4amxtN2Jt',
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })).data as refreshTokenResponse
+
+        this.refreshToken = data.refresh_token;
+        this.accessToken = data.access_token;
+
+        return data;
+
     }
 
     /**

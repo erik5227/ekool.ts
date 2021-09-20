@@ -1,4 +1,5 @@
 import { ekoolDate, gradeType } from "./types";
+import { taskPriorityLevels } from "./enums"
 
 /* 
 Some fields state "unknown" because they sometimes have a certain value, 
@@ -113,6 +114,30 @@ export interface queryBase {
     noticePush: boolean;
     todoPush: boolean;
     messagePush: boolean;
+}
+
+export interface privateTaskQuery extends queryBase {
+    personId: string | number;
+    isDone: boolean;
+    todoPerson: any;
+    todoPriority: any;
+}
+
+interface todoPerson {
+    content: string;
+    deadline: ekoolDate;
+    name: string;
+}
+
+interface todoPriority {
+    id: taskPriorityLevels;
+}
+
+export interface refreshTokenResponse {
+    access_token: string;
+    token_type: string;
+    refresh_token: string;
+    scope: string
 }
 
 export interface familyData {

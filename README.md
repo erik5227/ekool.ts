@@ -48,9 +48,13 @@ Work in progress. The class names, methods and API may be changed before initial
 
 `cleanFeed()` - Removes advertisements from eKool feed
 
-`formatDate()` - turns timestamp into ekool-friendly format
+`formatDate()` - Turns timestamp into ekool-friendly format
 
-`getChartForGrade()` - returns chart image url for provided grade id
+`getChartForGrade()` - Returns chart image url for provided grade id
+
+`createPersonalTask()` - Creates a new personal task
+
+`getNewToken()` - Obtains a new access token
 
 ## Example
 

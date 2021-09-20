@@ -101,6 +101,18 @@ export interface queryBase {
     todoPush: boolean;
     messagePush: boolean;
 }
+export interface privateTaskQuery extends queryBase {
+    personId: string | number;
+    isDone: boolean;
+    todoPerson: any;
+    todoPriority: any;
+}
+export interface refreshTokenResponse {
+    access_token: string;
+    token_type: string;
+    refresh_token: string;
+    scope: string;
+}
 export interface familyData {
     students: person[];
     parents: person[];
