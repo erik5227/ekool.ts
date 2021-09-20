@@ -1,4 +1,5 @@
 import { ekoolDate, gradeType } from "./types";
+import { taskPriorityLevels } from "./enums";
 interface adData {
     gender: string[];
     cities: string[];
@@ -118,8 +119,16 @@ export interface queryBase {
 export interface privateTaskQuery extends queryBase {
     personId: string | number;
     isDone: boolean;
-    todoPerson: any;
-    todoPriority: any;
+    todoPerson: todoPerson;
+    todoPriority: todoPriority;
+}
+interface todoPerson {
+    content: string;
+    deadline: ekoolDate;
+    name: string;
+}
+interface todoPriority {
+    id: taskPriorityLevels;
 }
 export interface refreshTokenResponse {
     access_token: string;

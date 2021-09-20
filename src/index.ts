@@ -289,12 +289,14 @@ export class EKool {
         let queryBase = this._getStampedBase(this._getQueryBase()) as privateTaskQuery;
         queryBase.personId = this.personData.id;
         queryBase.isDone = isDone;
-        queryBase.todoPerson = {};
-	    queryBase.todoPriority = {};
-        queryBase.todoPerson.content = content;
-		queryBase.todoPerson.deadline = new Date(deadline.getTime() - (deadline.getTimezoneOffset() * 60000 )).toISOString().split("T")[0];
-		queryBase.todoPerson.name = name;
-		queryBase.todoPriority.id = priority;
+        queryBase.todoPerson = {
+            content: content,
+            deadline: new Date(deadline.getTime() - (deadline.getTimezoneOffset() * 60000 )).toISOString().split("T")[0],
+            name: name
+        };
+	    queryBase.todoPriority = {
+            id: priority
+        };
 
         const headers = {
             "Authorization": "Bearer " + this.accessToken,
